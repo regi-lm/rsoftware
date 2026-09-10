@@ -31,7 +31,8 @@ export function initAnimations() {
       x: () => -getDistance(),
       ease: "none",
       scrollTrigger: {
-        trigger: section,
+        trigger: track,
+        start: "bottom bottom",
         pin: true,
         scrub: 0.8,
         end: () => `+=${getDistance() + innerWidth * 0.35}`,
