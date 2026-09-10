@@ -23,24 +23,6 @@ export function initAnimations() {
     });
   });
 
-  const track = document.querySelector("[data-project-track]");
-  const section = document.querySelector("[data-project-section]");
-  if (track && section && matchMedia("(min-width: 900px)").matches) {
-    const getDistance = () => Math.max(0, track.scrollWidth - innerWidth);
-    gsap.to(track, {
-      x: () => -getDistance(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: track,
-        start: "bottom bottom",
-        pin: true,
-        scrub: 0.8,
-        end: () => `+=${getDistance() + innerWidth * 0.35}`,
-        invalidateOnRefresh: true
-      }
-    });
-  }
-
   const steps = gsap.utils.toArray("[data-process-step]");
   if (steps.length && matchMedia("(min-width: 820px)").matches) {
     steps.forEach((step, index) => {

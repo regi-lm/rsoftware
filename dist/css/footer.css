@@ -9,4 +9,4 @@
 }
 .site-footer p { margin-top: .8rem; font-size: .95rem; }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 1rem; color: var(--muted); }
-.site-footer > p { grid-column: 1 / -1; color: #76818c; }
+.site-footer > p { grid-column: 1 / -1; color: #76818c; text-align: center; }

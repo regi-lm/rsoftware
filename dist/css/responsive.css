@@ -23,8 +23,8 @@
   .hero__visual { order: -1; min-height: 280px; }
   .about__image { max-height: 520px; }
   .skills__grid { grid-template-columns: repeat(7, 78vw); }
-  .project-track { display: grid; width: var(--container); margin-inline: auto; padding-inline: 0; }
-  .project-panel { width: 100%; min-height: auto; grid-template-columns: 1fr; }
+  .project-track { grid-template-columns: 1fr; padding-inline: 0; }
+  .project-panel { min-height: 440px; }
   .process__sticky { position: relative; top: auto; }
   .process__line { display: none; }
   .site-footer { grid-template-columns: 1fr; }
@@ -33,6 +33,6 @@
 @media (max-width: 560px) {
   h1 { font-size: clamp(3rem, 17vw, 4.8rem); }
   .brand span { display: none; }
-  .project-panel__media { min-height: 280px; }
+  .project-panel { min-height: 390px; }
   .cta-row, .button { width: 100%; }
 }

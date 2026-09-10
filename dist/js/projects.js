@@ -35,12 +35,9 @@ export function renderProjects(container, list = projects) {
   if (!container) return;
 
   container.innerHTML = list.map((project, index) => `
-    <article class="project-panel" data-project>
-      <div class="project-panel__media" aria-hidden="true">
-        <span>Projeto ${String(index + 1).padStart(2, "0")}</span>
-      </div>
+    <article class="project-panel" data-project${project.image ? ` style="background-image: url('${project.image}')"` : ""}>
       <div class="project-panel__content">
-        <p class="eyebrow">${project.category}</p>
+        <p class="eyebrow">Projeto ${String(index + 1).padStart(2, "0")} / ${project.category}</p>
         <h3>${project.title}</h3>
         <p>${project.description}</p>
         <ul class="tech-list" aria-label="Tecnologias">
