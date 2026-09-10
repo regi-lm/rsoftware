@@ -1,11 +1,26 @@
-.about { padding-block: clamp(5rem, 12vw, 10rem); }
-.about__grid { display: grid; grid-template-columns: 1fr .72fr; gap: clamp(2rem, 6vw, 5rem); align-items: end; }
-.about p { margin-top: 1.5rem; max-width: 720px; }
-.about__image {
-  margin: 0;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
+.about {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 92svh;
+  display: grid;
+  align-items: end;
+  padding: clamp(5rem, 12vw, 10rem) max(20px, calc((100vw - 1180px) / 2));
+  background-image: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=82");
+  background-position: center;
+  background-size: cover;
 }
-.about__image img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.75) contrast(1.08); }
+.about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(8,10,12,.92), rgba(8,10,12,.58), rgba(8,10,12,.28)),
+    linear-gradient(180deg, rgba(8,10,12,.28), rgba(8,10,12,.86));
+}
+.about__grid { display: block; width: min(820px, 100%); }
+.about p { margin-top: 1.5rem; max-width: 720px; color: rgba(245,247,250,.82); }
+.about__image {
+  display: none;
+}

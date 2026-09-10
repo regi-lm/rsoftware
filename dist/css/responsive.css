@@ -18,11 +18,12 @@
   }
   .nav-open .site-nav { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .header-cta { display: none; }
-  .hero, .about__grid, .process, .contact { grid-template-columns: 1fr; }
+  .hero, .process, .contact { grid-template-columns: 1fr; }
   .hero { padding-top: 6rem; align-content: center; }
-  .hero__visual { order: -1; min-height: 280px; }
-  .about__image { max-height: 520px; }
-  .skills__grid { grid-template-columns: repeat(7, 78vw); }
+  .hero__visual { min-height: 320px; }
+  .about { min-height: auto; }
+  .skills__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service-card { position: relative; top: auto !important; min-height: 420px; grid-template-columns: 1fr; }
   .project-track { grid-template-columns: 1fr; padding-inline: 0; }
   .project-panel { min-height: 440px; }
   .process__sticky { position: relative; top: auto; }
@@ -33,6 +34,9 @@
 @media (max-width: 560px) {
   h1 { font-size: clamp(3rem, 17vw, 4.8rem); }
   .brand span { display: none; }
+  .skills__grid { grid-template-columns: 1fr; }
+  .skill-item { min-height: 280px; }
+  .service-card { min-height: 360px; }
   .project-panel { min-height: 390px; }
   .cta-row, .button { width: 100%; }
 }

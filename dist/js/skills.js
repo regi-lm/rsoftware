@@ -40,6 +40,12 @@ export const skills = [
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
     copy: "Versionamento e controle do desenvolvimento para manter cada evolução do projeto organizada e segura.",
     use: "Histórico, colaboração e entregas controladas."
+  },
+  {
+    name: "Vercel",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    copy: "Deploy, preview e publicação de interfaces web com fluxo rápido, confiável e preparado para produção.",
+    use: "Hospedagem, previews e entrega contínua."
   }
 ];
 
@@ -48,7 +54,8 @@ export function renderSkills(container, list = skills) {
 
   container.innerHTML = list.map((skill, index) => `
     <article class="skill-item" data-cursor="skill" style="--i:${index}">
-      <img src="${skill.logo}" alt="" width="48" height="48" loading="lazy">
+      <img class="skill-item__mark" src="${skill.logo}" alt="" width="180" height="180" loading="lazy">
+      <img class="skill-item__logo" src="${skill.logo}" alt="" width="48" height="48" loading="lazy">
       <div>
         <h3>${skill.name}</h3>
         <p>${skill.copy}</p>

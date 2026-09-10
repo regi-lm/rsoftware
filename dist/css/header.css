@@ -7,11 +7,11 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 1rem;
-  width: min(1280px, calc(100vw - 28px));
-  margin: 12px auto 0;
-  padding: 0 .85rem;
+  width: 100%;
+  margin: 0;
+  padding: 0 clamp(.9rem, 2vw, 1.4rem);
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 0;
   transition: background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s var(--ease);
 }
 
