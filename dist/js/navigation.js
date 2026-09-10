@@ -3,23 +3,39 @@ export function initNavigation() {
   const toggle = document.querySelector("[data-menu-toggle]");
   const menu = document.querySelector("#site-menu");
   const links = menu ? [...menu.querySelectorAll("a")] : [];
+  const pageRegions = [...document.querySelectorAll("main, footer")];
 
-  const setMenu = (open) => {
+  const setMenu = (open, { returnFocus = false } = {}) => {
     toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     document.body.classList.toggle("nav-open", open);
+    pageRegions.forEach((region) => {
+      region.inert = open;
+    });
     if (open) links[0]?.focus();
+    else if (returnFocus) toggle?.focus();
   };
+
+  setMenu(false);
 
   toggle?.addEventListener("click", () => {
     setMenu(toggle.getAttribute("aria-expanded") !== "true");
   });
 
   links.forEach((link) => {
-    link.addEventListener("click", () => setMenu(false));
+    link.addEventListener("click", () => setMenu(false, { returnFocus: true }));
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenu(false);
+    if (event.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") {
+      setMenu(false, { returnFocus: true });
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980 && toggle?.getAttribute("aria-expanded") === "true") {
+      setMenu(false);
+    }
   });
 
   const updateHeader = () => {

@@ -31,6 +31,13 @@ export const projects = [
   }
 ];
 
+function formatBrandName(text) {
+  return text.replaceAll(
+    "RSoftware",
+    '<span class="brand-word"><span class="brand-initial">R</span>Software</span>'
+  );
+}
+
 export function renderProjects(container, list = projects) {
   if (!container) return;
 
@@ -39,7 +46,7 @@ export function renderProjects(container, list = projects) {
       <div class="project-panel__content">
         <p class="eyebrow">Projeto ${String(index + 1).padStart(2, "0")} / ${project.category}</p>
         <h3>${project.title}</h3>
-        <p>${project.description}</p>
+        <p>${formatBrandName(project.description)}</p>
         <ul class="tech-list" aria-label="Tecnologias">
           ${project.technologies.map((tech) => `<li>${tech}</li>`).join("")}
         </ul>

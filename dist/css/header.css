@@ -23,6 +23,7 @@
 
 .brand { display: inline-flex; align-items: center; gap: .7rem; font-weight: 800; }
 .brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 18px rgba(76,201,255,.22); }
+.brand-initial { color: var(--blue); }
 .site-nav { justify-self: center; display: flex; align-items: center; gap: clamp(.85rem, 2vw, 1.8rem); color: var(--muted); font-size: .95rem; }
 .site-nav a:hover { color: var(--text); }
 .header-cta { justify-self: end; padding: .72rem .9rem; border-radius: var(--radius); color: #041016; background: var(--blue); font-weight: 800; }

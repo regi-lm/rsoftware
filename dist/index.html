@@ -60,10 +60,11 @@
     <header class="site-header" data-header>
       <a class="brand" href="#topo" aria-label="RSoftware, início">
         <img src="assets/images/rsoftware-logo.jpeg" alt="RSoftware" width="42" height="42">
-        <span>RSoftware</span>
+        <span class="brand-word"><span class="brand-initial">R</span>Software</span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
-        <i data-lucide="menu"></i>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Abrir menu" data-menu-toggle>
+        <i class="menu-toggle__icon menu-toggle__icon--open" data-lucide="menu" aria-hidden="true"></i>
+        <i class="menu-toggle__icon menu-toggle__icon--close" data-lucide="x" aria-hidden="true"></i>
         <span class="sr-only">Abrir menu</span>
       </button>
       <nav id="site-menu" class="site-nav" aria-label="Navegação principal">
@@ -100,7 +101,7 @@
         <div class="about__grid">
           <div data-reveal>
             <h2 id="about-title">Não desenvolvemos apenas interfaces. Desenvolvemos soluções.</h2>
-            <p>A RSoftware transforma necessidades de negócio em produtos digitais rápidos, intuitivos e preparados para evoluir. Cada projeto nasce de um objetivo claro e recebe uma solução construída especificamente para ele — da primeira decisão de arquitetura à experiência final do usuário.</p>
+            <p>A <span class="brand-word"><span class="brand-initial">R</span>Software</span> transforma necessidades de negócio em produtos digitais rápidos, intuitivos e preparados para evoluir. Cada projeto nasce de um objetivo claro e recebe uma solução construída especificamente para ele — da primeira decisão de arquitetura à experiência final do usuário.</p>
           </div>
           <figure class="about__image" data-reveal>
             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=82" alt="Estação de trabalho com código em desenvolvimento" loading="lazy" width="700" height="860">
@@ -186,7 +187,7 @@
         <div class="faq__list" data-reveal>
           <article><button data-faq-button aria-expanded="false" aria-controls="faq-1">Quanto custa desenvolver um projeto?<i data-lucide="plus"></i></button><p id="faq-1" hidden>O investimento depende do escopo, complexidade e funcionalidades necessárias. Após entendermos o projeto, preparamos uma proposta de acordo com as necessidades reais do negócio.</p></article>
           <article><button data-faq-button aria-expanded="false" aria-controls="faq-2">Quanto tempo leva para desenvolver um projeto?<i data-lucide="plus"></i></button><p id="faq-2" hidden>O prazo varia conforme o tipo de projeto, quantidade de telas, integrações e nível de validação necessário. A estimativa é definida depois da descoberta inicial.</p></article>
-          <article><button data-faq-button aria-expanded="false" aria-controls="faq-3">A RSoftware trabalha com projetos personalizados?<i data-lucide="plus"></i></button><p id="faq-3" hidden>Sim. Cada solução é pensada de acordo com o objetivo do negócio, evitando estruturas genéricas quando o projeto exige decisões específicas.</p></article>
+          <article><button data-faq-button aria-expanded="false" aria-controls="faq-3">A <span class="brand-word"><span class="brand-initial">R</span>Software</span> trabalha com projetos personalizados?<i data-lucide="plus"></i></button><p id="faq-3" hidden>Sim. Cada solução é pensada de acordo com o objetivo do negócio, evitando estruturas genéricas quando o projeto exige decisões específicas.</p></article>
           <article><button data-faq-button aria-expanded="false" aria-controls="faq-4">O projeto será responsivo?<i data-lucide="plus"></i></button><p id="faq-4" hidden>Sim. A experiência é planejada para funcionar bem em celulares, tablets e desktops, com ajustes de layout, performance e interação.</p></article>
           <article><button data-faq-button aria-expanded="false" aria-controls="faq-5">Posso solicitar alterações durante o desenvolvimento?<i data-lucide="plus"></i></button><p id="faq-5" hidden>Sim, desde que estejam alinhadas ao escopo combinado. Mudanças maiores podem exigir reavaliação de prazo e investimento.</p></article>
           <article><button data-faq-button aria-expanded="false" aria-controls="faq-6">Vocês trabalham com projetos já existentes?<i data-lucide="plus"></i></button><p id="faq-6" hidden>Podemos avaliar projetos existentes para melhorias, ajustes, redesigns ou evolução técnica, dependendo do estado atual da base.</p></article>
@@ -200,7 +201,7 @@
           <p class="section-kicker">Contato</p>
           <h2 id="contact-title">Tem uma ideia? Vamos transformá-la em produto.</h2>
           <p>Conte o que você precisa construir. Analisaremos seu projeto e entraremos em contato para entender os próximos passos.</p>
-          <a class="button button--ghost" href="#" data-whatsapp><i data-lucide="message-circle"></i>Falar com a RSoftware pelo WhatsApp</a>
+          <a class="button button--ghost" href="#" data-whatsapp><i data-lucide="message-circle"></i>Falar com a <span class="brand-word"><span class="brand-initial">R</span>Software</span> pelo WhatsApp</a>
         </div>
         <form class="contact-form" data-contact-form novalidate data-reveal>
           <div><label for="name">Nome</label><input id="name" name="name" autocomplete="name" aria-describedby="name-error"><small id="name-error" data-error-for="name"></small></div>
@@ -215,7 +216,7 @@
 
     <footer class="site-footer">
       <div>
-        <a class="brand" href="#topo"><img src="assets/images/rsoftware-logo.jpeg" alt="" width="40" height="40"><span>RSoftware</span></a>
+        <a class="brand" href="#topo"><img src="assets/images/rsoftware-logo.jpeg" alt="" width="40" height="40"><span class="brand-word"><span class="brand-initial">R</span>Software</span></a>
         <p>Sites, landing pages, sistemas e aplicações web sob medida.</p>
       </div>
       <nav aria-label="Rodapé">
@@ -226,7 +227,7 @@
         <a href="#processo">Processo</a>
         <a href="#contato">Contato</a>
       </nav>
-      <p>© <span id="year">2026</span> RSoftware. Todos os direitos reservados.</p>
+      <p>© <span id="year">2026</span> <span class="brand-word"><span class="brand-initial">R</span>Software</span>. Todos os direitos reservados.</p>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
