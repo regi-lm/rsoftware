@@ -1,0 +1,28 @@
+.contact {
+  display: grid;
+  grid-template-columns: .88fr 1.12fr;
+  gap: clamp(2rem, 7vw, 5rem);
+  padding-block: clamp(5rem, 12vw, 10rem);
+}
+.contact__copy p:not(.section-kicker) { margin: 1.2rem 0 1.7rem; max-width: 620px; }
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.035);
+}
+.contact-form div { display: grid; gap: .45rem; }
+.contact-form label { color: var(--text); font-weight: 700; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: .9rem 1rem;
+  color: var(--text);
+  background: rgba(0,0,0,.22);
+}
+.contact-form textarea { resize: vertical; }
+.contact-form small { min-height: 1.15rem; color: var(--danger); }
+.form-status { min-height: 1.4rem; font-size: .95rem; color: var(--blue); }

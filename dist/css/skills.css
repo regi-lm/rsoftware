@@ -1,0 +1,19 @@
+.skills { padding-block: clamp(5rem, 12vw, 10rem); }
+.skills__grid { display: grid; grid-template-columns: repeat(7, minmax(220px, 1fr)); gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
+.skill-item {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  scroll-snap-align: start;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  transition: transform .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.skill-item:hover { transform: translateY(-8px) rotateX(2deg); border-color: rgba(76,201,255,.45); background: rgba(76,201,255,.08); }
+.skill-item img { width: 54px; height: 54px; }
+.skill-item p { margin-top: .8rem; font-size: .98rem; }
+.skill-item span { display: inline-block; margin-top: 1rem; color: var(--blue); font-size: .9rem; }

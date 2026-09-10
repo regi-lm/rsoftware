@@ -1,0 +1,18 @@
+.faq { padding-block: clamp(5rem, 12vw, 10rem); }
+.faq__list { display: grid; border-top: 1px solid var(--line); }
+.faq article { border-bottom: 1px solid var(--line); }
+.faq button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  color: var(--text);
+  background: transparent;
+  text-align: left;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+}
+.faq button svg { color: var(--blue); transition: transform .25s var(--ease); }
+.faq button[aria-expanded="true"] svg { transform: rotate(45deg); }
+.faq article p { max-width: 780px; padding-bottom: 1.4rem; }

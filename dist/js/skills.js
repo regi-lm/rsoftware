@@ -1,0 +1,59 @@
+export const skills = [
+  {
+    name: "HTML",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    copy: "Estrutura semântica e acessível para construir experiências sólidas desde a base.",
+    use: "Base de páginas rápidas, SEO e acessibilidade."
+  },
+  {
+    name: "CSS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    copy: "Responsividade, identidade visual e sistemas de interface que funcionam em qualquer tela.",
+    use: "Design systems, layouts fluidos e microinterações."
+  },
+  {
+    name: "JavaScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    copy: "Interações, comportamento e experiências dinâmicas diretamente no navegador.",
+    use: "Fluxos interativos, validação e integrações."
+  },
+  {
+    name: "React",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    copy: "Interfaces modernas e escaláveis para aplicações que exigem componentes e estados complexos.",
+    use: "Produtos com dashboards, estados ricos e evolução contínua."
+  },
+  {
+    name: "Node.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    copy: "APIs, integrações e lógica de servidor para conectar produtos, dados e serviços.",
+    use: "Backends, automações e integrações externas."
+  },
+  {
+    name: "Supabase",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+    copy: "Banco de dados, autenticação e infraestrutura para produtos digitais que precisam evoluir rapidamente.",
+    use: "MVPs com dados, login e crescimento gradual."
+  },
+  {
+    name: "Git",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    copy: "Versionamento e controle do desenvolvimento para manter cada evolução do projeto organizada e segura.",
+    use: "Histórico, colaboração e entregas controladas."
+  }
+];
+
+export function renderSkills(container, list = skills) {
+  if (!container) return;
+
+  container.innerHTML = list.map((skill, index) => `
+    <article class="skill-item" data-cursor="skill" style="--i:${index}">
+      <img src="${skill.logo}" alt="" width="48" height="48" loading="lazy">
+      <div>
+        <h3>${skill.name}</h3>
+        <p>${skill.copy}</p>
+        <span>${skill.use}</span>
+      </div>
+    </article>
+  `).join("");
+}

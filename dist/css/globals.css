@@ -1,0 +1,56 @@
+body {
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 10%, rgba(76, 201, 255, 0.14), transparent 28rem),
+    linear-gradient(180deg, rgba(255,255,255,0.035), transparent 18rem);
+  z-index: -1;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  transform: translateY(-140%);
+  padding: .75rem 1rem;
+  color: var(--bg);
+  background: var(--blue);
+  border-radius: var(--radius);
+}
+
+.skip-link:focus { transform: translateY(0); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.section-shell { width: var(--container); margin-inline: auto; }
+.section-kicker, .eyebrow { color: var(--blue); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.section-heading { max-width: 760px; margin-bottom: clamp(2rem, 7vw, 5rem); }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: clamp(3.4rem, 8vw, 7.8rem); line-height: .92; letter-spacing: 0; max-width: 980px; }
+h2 { font-size: clamp(2.35rem, 5.4vw, 5.6rem); line-height: .98; letter-spacing: 0; }
+h3 { font-size: clamp(1.25rem, 2vw, 2rem); line-height: 1.08; }
+p { color: var(--muted); font-size: clamp(1rem, 1.35vw, 1.16rem); }
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 48px;
+  padding: .85rem 1.08rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+}
+.button svg { width: 18px; height: 18px; }
+.button:hover { transform: translateY(-2px); }
+.button--primary { color: #031016; background: var(--blue); box-shadow: 0 0 28px rgba(76,201,255,.26); }
+.button--ghost { border: 1px solid var(--line); background: rgba(255,255,255,.035); color: var(--text); }
+.button--ghost[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.cta-row { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }

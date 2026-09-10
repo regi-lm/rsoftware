@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rsoftware-site.regi-lima.chatgpt.site/sitemap.xml

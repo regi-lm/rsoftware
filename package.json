@@ -1,0 +1,10 @@
+{
+  "name": "rsoftware-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check:syntax": "node --check dist/js/config.js && node --check dist/js/form.js && node --check dist/js/projects.js && node --check dist/js/main.js"
+  }
+}

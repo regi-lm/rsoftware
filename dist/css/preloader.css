@@ -1,0 +1,58 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #030506;
+  transition: clip-path .7s var(--ease), opacity .5s var(--ease);
+}
+
+.preloader__stage {
+  width: min(420px, 74vw);
+  perspective: 1100px;
+}
+
+.preloader__logo {
+  width: min(260px, 55vw);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0 0 34px rgba(76, 201, 255, .55));
+  animation: preloaderFloat 3.6s ease-in-out infinite;
+}
+
+.preloader__meter {
+  display: grid;
+  grid-template-columns: 1fr 3.5rem;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__bar {
+  height: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(76, 201, 255, .28);
+  border-radius: 99px;
+  background: rgba(255,255,255,.045);
+}
+
+.preloader__bar span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--blue);
+  box-shadow: 0 0 18px var(--blue);
+}
+
+.preloader.is-complete { clip-path: inset(0 0 100% 0); opacity: .1; }
+
+@keyframes preloaderFloat {
+  0%, 100% { transform: rotateX(5deg) rotateY(-8deg) translateY(0); }
+  50% { transform: rotateX(-4deg) rotateY(8deg) translateY(-12px) scale(1.02); }
+}
