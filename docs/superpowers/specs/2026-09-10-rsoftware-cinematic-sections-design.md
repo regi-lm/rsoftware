@@ -110,6 +110,7 @@ O arquivo de animações será dividido em funções internas independentes:
 ## Responsividade e acessibilidade
 
 - Serviços, Skills, Projetos e Processo manterão suas narrativas de rolagem no mobile.
+- O aviso legal no rodapé interno do menu mobile ficará centralizado.
 - Os tamanhos e durações serão reduzidos em telas baixas para evitar conteúdo cortado.
 - Nenhuma informação existirá somente dentro de uma imagem.
 - Conteúdo encoberto durante sequências fixadas não deverá receber foco indevido.
