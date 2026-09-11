@@ -35,6 +35,17 @@ test("renders technology icons instead of text pills", () => {
   assert.doesNotMatch(container.innerHTML, /<li>HTML<\/li>/);
 });
 
+test("escapes unknown technology names before inserting icon attributes", () => {
+  const container = { innerHTML: "" };
+  const unsafeTechnology = 'Unknown" onerror="alert(1)';
+
+  renderProjects(container, [{ ...projects[0], technologies: [unsafeTechnology] }]);
+
+  assert.match(container.innerHTML, /title="Unknown&quot; onerror=&quot;alert\(1\)"/);
+  assert.match(container.innerHTML, /alt="Unknown&quot; onerror=&quot;alert\(1\)"/);
+  assert.doesNotMatch(container.innerHTML, /title="Unknown" onerror=/);
+});
+
 test("renders service-shaped project cards with an image fallback", () => {
   const container = { innerHTML: "" };
 

@@ -42,6 +42,15 @@ function formatBrandName(text) {
   );
 }
 
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
 export function renderProjects(container, list = projects) {
   if (!container) return;
 
@@ -57,7 +66,8 @@ export function renderProjects(container, list = projects) {
         <ul class="tech-list" aria-label="Tecnologias">
           ${project.technologies.map((tech) => {
             const icon = getTechnologyIcon(tech);
-            return `<li class="tech-icon" title="${icon.name}"><img src="${icon.src}" alt="${icon.name}" width="28" height="28" loading="lazy"></li>`;
+            const iconName = escapeHtmlAttribute(icon.name);
+            return `<li class="tech-icon" title="${iconName}"><img src="${icon.src}" alt="${iconName}" width="28" height="28" loading="lazy"></li>`;
           }).join("")}
         </ul>
         ${project.url ? `<a class="button button--ghost project-panel__action" href="${project.url}" target="_blank" rel="noreferrer">Ver projeto</a>` : `<span class="placeholder-note">Placeholder configurável</span>`}
