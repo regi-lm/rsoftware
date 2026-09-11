@@ -6,7 +6,6 @@ import { initNavigation } from "./navigation.js";
 import { initFaq } from "./faq.js";
 import { initCursor } from "./cursor.js";
 import { initPreloader } from "./preloader.js";
-import { initHeroThree } from "./hero-three.js";
 import { initAnimations } from "./animations.js";
 import { initProcessProgress } from "./process.js";
 
@@ -31,6 +30,16 @@ function initIcons() {
   }
 }
 
+function initHeroVideo() {
+  const video = document.querySelector("[data-hero-video]");
+  if (!video) return;
+
+  video.defaultMuted = true;
+  video.play().catch(() => {
+    video.play().catch(() => {});
+  });
+}
+
 renderSkills(document.querySelector("[data-skills-grid]"));
 renderProjects(document.querySelector("[data-project-track]"));
 initNavigation();
@@ -42,6 +51,6 @@ initProcessProgress();
 initIcons();
 
 initPreloader().then(() => {
-  initHeroThree();
+  initHeroVideo();
   initAnimations();
 });

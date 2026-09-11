@@ -9,3 +9,10 @@ test("ships an accessible floating WhatsApp action", async () => {
   assert.match(html, /class="whatsapp-float"[^>]*data-whatsapp/);
   assert.match(html, /aria-label="Falar no WhatsApp"/);
 });
+
+test("uses the local silent looping video as the hero background", async () => {
+  const html = await readFile(indexUrl, "utf8");
+  assert.match(html, /<video[^>]*data-hero-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline/);
+  assert.match(html, /assets\/video\/hero-programador\.mp4/);
+  assert.doesNotMatch(html, /three\.min\.js|data-hero-canvas/);
+});

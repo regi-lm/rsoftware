@@ -87,8 +87,9 @@
     <main id="conteudo">
       <section id="topo" class="hero section-shell" aria-labelledby="hero-title">
         <div class="hero__visual" aria-hidden="true">
-          <canvas data-hero-canvas></canvas>
-          <div class="hero__fallback">&lt;/&gt;</div>
+          <video data-hero-video autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video/hero-programador.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="hero__content" data-reveal>
           <p class="eyebrow">Desenvolvimento web sob medida</p>
@@ -242,7 +243,6 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js" defer></script>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

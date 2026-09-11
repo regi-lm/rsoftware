@@ -1,5 +1,6 @@
 .services {
   padding-block: clamp(5rem, 12vw, 10rem);
+  padding-top: clamp(8rem, 16vw, 13rem);
 }
 
 .services__stack {
