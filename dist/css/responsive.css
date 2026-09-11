@@ -108,8 +108,8 @@
   .about { min-height: auto; }
   .skills__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .service-card { min-height: 420px; grid-template-columns: 1fr; }
-  .project-track { grid-template-columns: 1fr; padding-inline: 0; }
-  .project-panel { min-height: 440px; }
+  .project-track { padding-inline: 0; }
+  .project-panel { min-height: 420px; grid-template-columns: 1fr; }
   .process__sticky { position: relative; top: auto; }
   .process__line { display: none; }
   .site-footer { grid-template-columns: 1fr; }
@@ -132,7 +132,7 @@
   .skills__grid { grid-template-columns: 1fr; }
   .skill-item { min-height: 280px; }
   .service-card { min-height: 360px; }
-  .project-panel { min-height: 390px; }
+  .project-panel { min-height: 360px; }
   .cta-row, .button { width: 100%; }
 }
 

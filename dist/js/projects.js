@@ -1,3 +1,7 @@
+import { getTechnologyIcon } from "./technology-icons.js";
+
+const fallbackProjectImage = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=76";
+
 export const projects = [
   {
     id: "placeholder-website",
@@ -42,15 +46,21 @@ export function renderProjects(container, list = projects) {
   if (!container) return;
 
   container.innerHTML = list.map((project, index) => `
-    <article class="project-panel" data-project${project.image ? ` style="background-image: url('${project.image}')"` : ""}>
+    <article class="project-panel" data-project>
+      <img class="project-panel__media" src="${project.image || fallbackProjectImage}" alt="" loading="lazy" width="1600" height="1067">
+      <div class="project-panel__overlay" aria-hidden="true"></div>
+      <span class="project-panel__index">${String(index + 1).padStart(2, "0")}</span>
       <div class="project-panel__content">
-        <p class="eyebrow">Projeto ${String(index + 1).padStart(2, "0")} / ${project.category}</p>
+        <p class="eyebrow">${project.category}</p>
         <h3>${project.title}</h3>
         <p>${formatBrandName(project.description)}</p>
         <ul class="tech-list" aria-label="Tecnologias">
-          ${project.technologies.map((tech) => `<li>${tech}</li>`).join("")}
+          ${project.technologies.map((tech) => {
+            const icon = getTechnologyIcon(tech);
+            return `<li class="tech-icon" title="${icon.name}"><img src="${icon.src}" alt="${icon.name}" width="28" height="28" loading="lazy"></li>`;
+          }).join("")}
         </ul>
-        ${project.url ? `<a class="text-link" href="${project.url}" target="_blank" rel="noreferrer">Ver projeto</a>` : `<span class="placeholder-note">Placeholder configurável</span>`}
+        ${project.url ? `<a class="button button--ghost project-panel__action" href="${project.url}" target="_blank" rel="noreferrer">Ver projeto</a>` : `<span class="placeholder-note">Placeholder configurável</span>`}
       </div>
     </article>
   `).join("");
