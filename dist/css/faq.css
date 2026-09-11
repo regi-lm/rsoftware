@@ -14,5 +14,7 @@
   font-size: clamp(1.05rem, 2vw, 1.45rem);
 }
 .faq button svg { color: var(--blue); transition: transform .25s var(--ease); }
+.faq__question { min-width: 0; }
+.brand-word--faq::first-letter { color: var(--blue); }
 .faq button[aria-expanded="true"] svg { transform: rotate(45deg); }
 .faq article p { max-width: 780px; padding-bottom: 1.4rem; }

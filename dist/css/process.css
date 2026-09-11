@@ -8,7 +8,26 @@
 .process__line { width: 2px; height: 220px; margin-top: 2rem; background: var(--line); transform-origin: top; }
 .process__line span { display: block; width: 100%; height: 100%; transform: scaleY(.16); transform-origin: top; background: var(--blue); box-shadow: 0 0 20px var(--blue); }
 .process__steps { display: grid; gap: 1rem; }
-.process__steps article { min-height: 260px; display: grid; align-content: center; padding: 2rem; border-top: 1px solid var(--line); }
+.process__steps article {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 260px;
+  display: grid;
+  align-content: center;
+  padding: 2rem;
+  border-top: 1px solid var(--line);
+  background: #0a0d10;
+}
+.process-step__media { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.process-step__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(8, 10, 12, .9), rgba(8, 10, 12, .56) 58%, rgba(8, 10, 12, .3));
+}
+.process-step > :not(.process-step__media):not(.process-step__overlay) { position: relative; z-index: 1; }
 .process__steps span { color: var(--blue); font-weight: 900; }
 .process__steps h3 { margin-top: .8rem; }
 .process__steps p { margin-top: 1rem; max-width: 560px; }

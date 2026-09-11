@@ -107,7 +107,7 @@
   .hero__visual { min-height: 320px; }
   .about { min-height: auto; }
   .skills__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .service-card { position: relative; top: auto !important; min-height: 420px; grid-template-columns: 1fr; }
+  .service-card { min-height: 420px; grid-template-columns: 1fr; }
   .project-track { grid-template-columns: 1fr; padding-inline: 0; }
   .project-panel { min-height: 440px; }
   .process__sticky { position: relative; top: auto; }
