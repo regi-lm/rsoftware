@@ -1,15 +1,15 @@
 export const CONFIG = {
   siteName: "RSoftware",
   canonicalUrl: "https://rsoftware-site.regi-lima.chatgpt.site/",
-  whatsappNumber: "",
-  whatsappMessage: "Olá! Conheci a RSoftware pelo site e gostaria de conversar sobre um projeto.",
+  whatsappNumber: "+5591984536649",
+  whatsappMessage: "Olá! Vim pelo site da RSoftware e gostaria de ter um forte posicionamento online.",
   formEndpoint: "",
   socialLinks: []
 };
 
-export function getWhatsAppHref(options = {}) {
-  const number = String(options.number ?? CONFIG.whatsappNumber).replace(/\D/g, "");
-  const message = options.message ?? CONFIG.whatsappMessage;
+export function getWhatsAppHref(config = CONFIG) {
+  const number = String(config.whatsappNumber ?? "").replace(/\D/g, "");
+  const message = config.whatsappMessage ?? "";
 
   if (!number) {
     return null;

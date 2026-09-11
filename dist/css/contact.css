@@ -5,6 +5,7 @@
   padding-block: clamp(5rem, 12vw, 10rem);
 }
 .contact__copy p:not(.section-kicker) { margin: 1.2rem 0 1.7rem; max-width: 620px; }
+.contact__copy [data-whatsapp] { margin-top: .25rem; }
 .contact-form {
   display: grid;
   gap: 1rem;
