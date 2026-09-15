@@ -12,7 +12,15 @@
   --danger: #ff7a7a;
   --radius: 8px;
   --container: min(1180px, calc(100vw - 40px));
+  --container-wide: min(1480px, calc(100vw - 40px));
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --header-h: 74px;
+  --display-size: clamp(4rem, 10.8vw, 10.5rem);
+  --section-title-size: clamp(3rem, 7vw, 7.2rem);
+  --panel-radius: clamp(1rem, 2vw, 1.75rem);
+  --space-section: clamp(6rem, 13vw, 12rem);
+  --shadow-deep: 0 50px 140px rgba(0, 0, 0, .48);
+  --header-pad: clamp(.85rem, 2vw, 1.4rem);
 }
