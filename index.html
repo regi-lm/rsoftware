@@ -48,13 +48,13 @@
     <div class="cursor-glow" data-cursor-glow data-state="default" aria-hidden="true"></div>
 
     <div class="preloader" data-preloader aria-label="Carregando site">
-      <div class="preloader__stage">
-        <img src="assets/images/rsoftware-logo.jpeg" alt="" class="preloader__logo">
-        <div class="preloader__meter">
-          <span class="preloader__bar"><span data-progress-bar></span></span>
-          <span data-progress-label>0%</span>
-        </div>
+      <div class="preloader__topline">
+        <span>RSoftware</span>
+        <span data-progress-label>0%</span>
       </div>
+      <div class="preloader__brand" aria-hidden="true"><span class="brand-initial">R</span>Software</div>
+      <span class="preloader__bar"><span data-progress-bar></span></span>
+      <div class="preloader__curtain" aria-hidden="true"></div>
     </div>
 
     <header class="site-header" data-header>
@@ -86,23 +86,31 @@
 
     <main id="conteudo">
       <section id="topo" class="hero section-shell" aria-labelledby="hero-title">
-        <div class="hero__visual" aria-hidden="true">
-          <video data-hero-video autoplay muted loop playsinline preload="metadata">
-            <source src="assets/video/hero-programador.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="hero__content" data-reveal>
-          <p class="eyebrow">Desenvolvimento web sob medida</p>
-          <h1 id="hero-title">Software pensado para fazer seu negócio avançar.</h1>
+        <div class="hero__copy" data-hero-copy>
+          <p class="eyebrow" data-reveal-line>Desenvolvimento web sob medida</p>
+          <h1 id="hero-title" data-hero-title>
+            <span class="sr-only">Software pensado para fazer seu negócio avançar.</span>
+            <span class="hero__title-lines" aria-hidden="true">
+              <span data-title-line>Software pensado</span>
+              <span data-title-line>para fazer seu negócio</span>
+              <span data-title-line>avançar.</span>
+            </span>
+          </h1>
           <p>Desenvolvemos sites, landing pages, sistemas e aplicações web sob medida — combinando estratégia, design e tecnologia para transformar ideias em experiências digitais.</p>
           <div class="cta-row">
             <a class="button button--primary" href="#contato" data-cursor="cta"><i data-lucide="send"></i>Solicitar orçamento</a>
             <a class="button button--ghost" href="#" data-whatsapp data-cursor="cta"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" width="26" height="26">Falar no WhatsApp</a>
           </div>
         </div>
+        <div class="hero__media" data-hero-media aria-hidden="true">
+          <video data-hero-video autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video/hero-programador.mp4" type="video/mp4">
+          </video>
+        </div>
       </section>
 
       <section id="sobre" class="about section-shell" aria-labelledby="about-title">
+        <div class="section-meta" aria-hidden="true"><span data-section-index="01">01</span><span>Sobre</span></div>
         <div class="section-kicker" data-reveal>Sobre</div>
         <div class="about__grid">
           <div data-reveal>
@@ -116,11 +124,12 @@
       </section>
 
       <section id="servicos" class="services section-shell" aria-labelledby="services-title">
+        <div class="section-meta" aria-hidden="true"><span data-section-index="02">02</span><span>Serviços</span></div>
         <div class="section-heading" data-reveal>
           <p class="section-kicker">Serviços</p>
           <h2 id="services-title">Soluções digitais com escopo claro e execução precisa.</h2>
         </div>
-        <div class="services__stack">
+        <div class="services__stack" data-services-stack>
           <article class="service-card" data-service-card>
             <img class="service-card__media" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=76" alt="" loading="lazy" width="1600" height="1067">
             <div class="service-card__overlay" aria-hidden="true"></div>
@@ -161,15 +170,17 @@
       </section>
 
       <section id="skills" class="skills section-shell" aria-labelledby="skills-title">
+        <div class="section-meta" aria-hidden="true"><span data-section-index="03">03</span><span>Skills</span></div>
         <div class="section-heading" data-reveal>
           <p class="section-kicker">Skills</p>
           <h2 id="skills-title">Tecnologia certa para cada desafio.</h2>
         </div>
-        <div class="skills__grid" data-skills-grid data-reveal></div>
+        <div class="skills__experience" data-skills-grid data-skills-experience data-reveal></div>
       </section>
 
       <section id="projetos" class="projects" aria-labelledby="projects-title">
         <div class="section-shell projects__intro" data-reveal>
+          <div class="section-meta" aria-hidden="true"><span data-section-index="04">04</span><span>Projetos</span></div>
           <p class="section-kicker">Projetos</p>
           <h2 id="projects-title">Projetos construídos para resolver problemas reais.</h2>
           <p>Explore uma seleção de experiências digitais desenvolvidas com decisões de design, tecnologia e arquitetura orientadas aos objetivos de cada projeto.</p>
@@ -178,12 +189,14 @@
       </section>
 
       <section id="processo" class="process section-shell" aria-labelledby="process-title">
-        <div class="process__sticky">
-          <p class="section-kicker">Processo</p>
-          <h2 id="process-title">Da ideia ao produto, sem atalhos.</h2>
-          <div class="process__line" aria-hidden="true"><span data-process-progress></span></div>
-        </div>
-        <div class="process__steps">
+        <div class="section-meta" aria-hidden="true"><span data-section-index="05">05</span><span>Processo</span></div>
+        <div class="process__stage" data-process-stage>
+          <div class="process__sticky">
+            <p class="section-kicker">Processo</p>
+            <h2 id="process-title">Da ideia ao produto, sem atalhos.</h2>
+            <div class="process__line" aria-hidden="true"><span data-process-progress></span></div>
+          </div>
+          <div class="process__steps">
           <article class="process-step" data-process-step>
             <img class="process-step__media" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=76" alt="" loading="lazy" width="1600" height="1067">
             <div class="process-step__overlay" aria-hidden="true"></div>
@@ -214,10 +227,12 @@
             <div class="process-step__overlay" aria-hidden="true"></div>
             <span>06</span><h3>Entrega & Evolução</h3><p>Colocamos o projeto em produção e deixamos sua estrutura preparada para continuar evoluindo.</p>
           </article>
+          </div>
         </div>
       </section>
 
       <section id="faq" class="faq section-shell" aria-labelledby="faq-title">
+        <div class="section-meta" aria-hidden="true"><span data-section-index="06">06</span><span>FAQ</span></div>
         <div class="section-heading" data-reveal>
           <p class="section-kicker">FAQ</p>
           <h2 id="faq-title">Perguntas frequentes.</h2>
@@ -234,7 +249,8 @@
         </div>
       </section>
 
-      <section id="contato" class="contact section-shell" aria-labelledby="contact-title">
+      <section id="contato" class="contact section-shell" aria-labelledby="contact-title" data-contact-layout>
+        <div class="section-meta" aria-hidden="true"><span data-section-index="07">07</span><span>Contato</span></div>
         <div class="contact__copy" data-reveal>
           <p class="section-kicker">Contato</p>
           <h2 id="contact-title">Tem uma ideia? Vamos transformá-la em produto.</h2>
