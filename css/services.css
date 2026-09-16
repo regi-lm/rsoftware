@@ -1,12 +1,12 @@
 .services {
-  padding-block: clamp(5rem, 12vw, 10rem);
-  padding-top: clamp(8rem, 16vw, 13rem);
+  padding-block: var(--space-section);
 }
 
+.services .section-heading { margin-bottom: clamp(4rem, 9vw, 8rem); }
 .services__stack {
   display: grid;
-  gap: clamp(2rem, 6vw, 4rem);
-  padding-bottom: 12vh;
+  gap: clamp(3rem, 8vw, 7rem);
+  padding-bottom: 18vh;
 }
 
 .service-card {
@@ -14,16 +14,16 @@
   isolation: isolate;
   overflow: hidden;
   top: calc(var(--header-h) + 22px);
-  min-height: min(68vh, 620px);
+  min-height: min(80svh, 780px);
   display: grid;
   grid-template-columns: .28fr 1fr;
   align-items: end;
   gap: clamp(1rem, 4vw, 3rem);
   padding: clamp(1.3rem, 4vw, 3rem);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--panel-radius);
   background: #0a0d10;
-  box-shadow: 0 40px 120px rgba(0,0,0,.38);
+  box-shadow: var(--shadow-deep);
 }
 
 .service-card__media {
@@ -41,8 +41,8 @@
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(112deg, rgba(8, 10, 12, .94) 8%, rgba(8, 10, 12, .68) 48%, rgba(8, 10, 12, .28)),
-    linear-gradient(0deg, rgba(8, 10, 12, .78), transparent 60%);
+    linear-gradient(112deg, rgba(8, 10, 12, .96) 8%, rgba(8, 10, 12, .66) 52%, rgba(8, 10, 12, .22)),
+    linear-gradient(0deg, rgba(8, 10, 12, .84), transparent 62%);
 }
 
 .service-card > :not(.service-card__media):not(.service-card__overlay) {
@@ -53,21 +53,24 @@
 .service-card:nth-child(2) { top: calc(var(--header-h) + 38px); }
 .service-card:nth-child(3) { top: calc(var(--header-h) + 54px); }
 .service-card:nth-child(4) { top: calc(var(--header-h) + 70px); }
+.service-card:nth-child(even) { border-color: rgba(76,201,255,.38); }
+.service-card:nth-child(2) .service-card__overlay {
+  background: linear-gradient(112deg, rgba(3,16,22,.97) 8%, rgba(13,91,123,.72) 56%, rgba(76,201,255,.2)), linear-gradient(0deg, rgba(3,16,22,.82), transparent 64%);
+}
 
 .service-card span {
   color: var(--blue);
-  font-size: clamp(3.4rem, 10vw, 8rem);
+  align-self: start;
+  font-size: clamp(4rem, 12vw, 11rem);
   font-weight: 900;
   line-height: .82;
   opacity: .7;
 }
 
-.service-card h3 {
-  font-size: clamp(2rem, 5vw, 4.8rem);
-}
+.service-card h3 { max-width: 900px; font-size: clamp(2.7rem, 6.5vw, 7rem); letter-spacing: -.055em; }
 
 .service-card p {
   max-width: 720px;
   margin-top: 1rem;
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-size: clamp(1rem, 1.45vw, 1.24rem);
 }

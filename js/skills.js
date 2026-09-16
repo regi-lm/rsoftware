@@ -52,8 +52,12 @@ export const skills = [
 export function renderSkills(container, list = skills) {
   if (!container) return;
 
-  container.innerHTML = list.map((skill, index) => `
-    <article class="skill-item" data-cursor="skill" style="--i:${index}">
+  const marqueeItems = [...list, ...list].map((skill) => `
+    <span><img src="${skill.logo}" alt="" width="24" height="24">${skill.name}</span>
+  `).join("");
+
+  const skillItems = list.map((skill, index) => `
+    <article class="skill-item" data-skill-item data-cursor="skill" style="--i:${index}">
       <img class="skill-item__mark" src="${skill.logo}" alt="" width="180" height="180" loading="lazy">
       <img class="skill-item__logo" src="${skill.logo}" alt="" width="48" height="48" loading="lazy">
       <div>
@@ -63,4 +67,11 @@ export function renderSkills(container, list = skills) {
       </div>
     </article>
   `).join("");
+
+  container.innerHTML = `
+    <div class="skills__marquee" data-skill-marquee aria-hidden="true">
+      <div>${marqueeItems}</div>
+    </div>
+    <div class="skills__stage" data-skills-stage>${skillItems}</div>
+  `;
 }

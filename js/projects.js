@@ -55,11 +55,11 @@ export function renderProjects(container, list = projects) {
   if (!container) return;
 
   container.innerHTML = list.map((project, index) => `
-    <article class="project-panel" data-project>
+    <article class="project-panel" data-project data-project-panel style="--i:${index}">
       <img class="project-panel__media" src="${project.image || fallbackProjectImage}" alt="" loading="lazy" width="1600" height="1067">
       <div class="project-panel__overlay" aria-hidden="true"></div>
       <span class="project-panel__index">${String(index + 1).padStart(2, "0")}</span>
-      <div class="project-panel__content">
+      <div class="project-panel__content" data-project-content>
         <p class="eyebrow">${project.category}</p>
         <h3>${project.title}</h3>
         <p>${formatBrandName(project.description)}</p>

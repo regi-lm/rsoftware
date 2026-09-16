@@ -1,13 +1,16 @@
-.projects { padding-block: clamp(5rem, 12vw, 10rem); overflow: hidden; }
-.projects__intro p:not(.section-kicker) { max-width: 760px; margin-top: 1rem; }
+.projects { padding-block: var(--space-section); overflow: clip; }
+.projects__intro .section-meta { margin-bottom: clamp(2rem, 6vw, 5rem); }
+.projects__intro { width: var(--container-wide); }
+.projects__intro h2 { max-width: 1200px; }
+.projects__intro p:not(.section-kicker) { max-width: 760px; margin-top: 1.4rem; }
 
 .project-track {
-  width: var(--container);
+  width: var(--container-wide);
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2rem, 6vw, 4rem);
+  gap: clamp(3rem, 8vw, 7rem);
   margin-inline: auto;
-  padding: clamp(2rem, 5vw, 4rem) 0 12vh;
+  padding: clamp(4rem, 7vw, 7rem) 0 18vh;
 }
 
 .project-panel {
@@ -15,16 +18,16 @@
   isolation: isolate;
   overflow: hidden;
   top: calc(var(--header-h) + 22px);
-  min-height: min(68vh, 620px);
+  min-height: min(82svh, 800px);
   display: grid;
   grid-template-columns: .28fr 1fr;
   align-items: end;
   gap: clamp(1rem, 4vw, 3rem);
   padding: clamp(1.3rem, 4vw, 3rem);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--panel-radius);
   background: #0a0d10;
-  box-shadow: 0 40px 120px rgba(0,0,0,.38);
+  box-shadow: var(--shadow-deep);
 }
 
 .project-panel__media {
@@ -53,16 +56,19 @@
 
 .project-panel:nth-child(2) { top: calc(var(--header-h) + 38px); }
 .project-panel:nth-child(3) { top: calc(var(--header-h) + 54px); }
+.project-panel:nth-child(2) { border-color: rgba(76,201,255,.38); }
 
 .project-panel__index {
   color: var(--blue);
-  font-size: clamp(3.4rem, 10vw, 8rem);
+  align-self: start;
+  font-size: clamp(4rem, 12vw, 11rem);
   font-weight: 900;
   line-height: .82;
   opacity: .7;
 }
 
-.project-panel__content h3 { font-size: clamp(2rem, 5vw, 4.8rem); }
+.project-panel__content { align-self: end; max-width: 980px; }
+.project-panel__content h3 { font-size: clamp(2.7rem, 6.5vw, 7rem); letter-spacing: -.06em; }
 .project-panel__content p:not(.eyebrow) { max-width: 720px; margin-top: 1rem; font-size: clamp(1rem, 1.6vw, 1.25rem); }
 .tech-list { display: flex; flex-wrap: wrap; gap: .65rem; padding: 0; margin: 1.4rem 0 0; list-style: none; }
 .tech-icon {
