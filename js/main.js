@@ -9,6 +9,17 @@ import { initPreloader } from "./preloader.js";
 import { initAnimations } from "./animations.js";
 import { initProcessProgress } from "./process.js";
 
+document.documentElement.classList.add("has-js");
+
+function safelyInitialize(initializer) {
+  try {
+    return initializer();
+  } catch (error) {
+    console.error(error);
+    return undefined;
+  }
+}
+
 function initWhatsApp() {
   const href = getWhatsAppHref();
   document.querySelectorAll("[data-whatsapp]").forEach((link) => {
@@ -42,15 +53,16 @@ function initHeroVideo() {
 
 renderSkills(document.querySelector("[data-skills-grid]"));
 renderProjects(document.querySelector("[data-project-track]"));
-initNavigation();
-initFaq();
-initCursor();
-initWhatsApp();
-initContactForm(document.querySelector("[data-contact-form]"), CONFIG);
-initProcessProgress();
-initIcons();
+safelyInitialize(initNavigation);
+safelyInitialize(initFaq);
+safelyInitialize(initWhatsApp);
+safelyInitialize(() => initContactForm(document.querySelector("[data-contact-form]"), CONFIG));
+safelyInitialize(initProcessProgress);
+safelyInitialize(initIcons);
 
-initPreloader().then(() => {
-  initHeroVideo();
-  initAnimations();
+const preloaderPromise = safelyInitialize(initPreloader) ?? Promise.resolve();
+Promise.resolve(preloaderPromise).finally(() => {
+  safelyInitialize(initHeroVideo);
+  safelyInitialize(initCursor);
+  safelyInitialize(initAnimations);
 });

@@ -1,10 +1,27 @@
+export function getMotionProfile({ width, height, reduced, pointerFine }) {
+  if (reduced) return "static";
+  if (width < 760 || height < 620 || !pointerFine) return "compact";
+  return "full";
+}
+
 export function initAnimations() {
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!gsap || !ScrollTrigger || reduced) {
-    document.body.classList.add("motion-light");
-    return;
+  const profile = getMotionProfile({
+    width: innerWidth,
+    height: innerHeight,
+    reduced,
+    pointerFine: matchMedia("(pointer: fine)").matches
+  });
+
+  document.body.classList.remove("motion-static", "motion-compact", "motion-full");
+  document.body.classList.add(`motion-${profile}`);
+
+  if (!gsap || !ScrollTrigger || profile === "static") {
+    document.body.classList.remove("motion-compact", "motion-full");
+    document.body.classList.add("motion-static");
+    return () => {};
   }
 
   gsap.registerPlugin(ScrollTrigger);
@@ -85,4 +102,7 @@ export function initAnimations() {
   }
 
   ScrollTrigger.refresh();
+  return () => {
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  };
 }
