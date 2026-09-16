@@ -1,17 +1,212 @@
+import { setProcessProgress } from "./process.js";
+
 export function getMotionProfile({ width, height, reduced, pointerFine }) {
   if (reduced) return "static";
   if (width < 760 || height < 620 || !pointerFine) return "compact";
   return "full";
 }
 
+export function getPanelScrollDistance(count, viewportHeight, profile) {
+  if (profile === "static" || count <= 1) return 0;
+  const factor = profile === "compact" ? 0.55 : 1;
+  return Math.round((count - 1) * viewportHeight * factor);
+}
+
+function initGlobalReveals(gsap, profile) {
+  const distance = profile === "compact" ? 22 : 52;
+
+  gsap.utils.toArray("[data-reveal], [data-reveal-line]").forEach((element) => {
+    if (element.closest("[data-hero-copy]")) return;
+
+    gsap.from(element, {
+      y: distance,
+      opacity: 0,
+      filter: profile === "full" ? "blur(12px)" : "blur(5px)",
+      duration: profile === "full" ? 1.05 : 0.72,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 86%",
+        once: true
+      }
+    });
+  });
+}
+
+function initHeroSequence(gsap, profile) {
+  const titleLines = gsap.utils.toArray("[data-title-line]");
+  const heroCopy = document.querySelector("[data-hero-copy]");
+  const heroMedia = document.querySelector("[data-hero-media]");
+  if (!heroCopy || !titleLines.length) return;
+
+  const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
+  intro
+    .from(titleLines, {
+      yPercent: 112,
+      rotation: profile === "full" ? 1.5 : 0,
+      opacity: 0,
+      duration: profile === "full" ? 1.15 : 0.78,
+      stagger: 0.08
+    })
+    .from(heroCopy.querySelector(".eyebrow"), { y: 18, opacity: 0, duration: 0.6 }, 0.18)
+    .from(heroCopy.querySelectorAll(":scope > p:not(.eyebrow), .cta-row"), {
+      y: 24,
+      opacity: 0,
+      duration: 0.72,
+      stagger: 0.08
+    }, "-=0.5");
+
+  if (!heroMedia) return;
+
+  gsap.fromTo(heroMedia,
+    {
+      scale: profile === "full" ? 0.72 : 0.92,
+      borderRadius: profile === "full" ? "4rem" : "1.5rem"
+    },
+    {
+      scale: 1,
+      borderRadius: "0.8rem",
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: profile === "full" ? "bottom 35%" : "bottom 55%",
+        scrub: profile === "full" ? 1 : 0.45
+      }
+    }
+  );
+
+  const video = heroMedia.querySelector("video");
+  if (video) {
+    gsap.fromTo(video, { scale: 1.08, yPercent: -2 }, {
+      scale: 1,
+      yPercent: 4,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  }
+}
+
+function initPanelStack(gsap, selector, profile) {
+  const panels = gsap.utils.toArray(selector);
+  if (panels.length < 2) return;
+
+  panels.slice(1).forEach((panel) => {
+    gsap.fromTo(panel,
+      {
+        y: profile === "full" ? 96 : 48,
+        scale: profile === "full" ? 0.94 : 0.98,
+        opacity: 0.72,
+        filter: profile === "full" ? "blur(12px)" : "blur(4px)"
+      },
+      {
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        ease: "none",
+        scrollTrigger: {
+          trigger: panel,
+          start: profile === "full" ? "top 88%" : "top 92%",
+          end: profile === "full" ? "top 24%" : "top 58%",
+          scrub: profile === "full" ? 0.9 : 0.45
+        }
+      }
+    );
+  });
+}
+
+function initSkillsSequence(gsap, profile) {
+  const marquee = document.querySelector("[data-skill-marquee] > div");
+  const items = gsap.utils.toArray("[data-skill-item]");
+
+  if (marquee) {
+    gsap.to(marquee, {
+      xPercent: -50,
+      duration: profile === "full" ? 24 : 34,
+      repeat: -1,
+      ease: "none"
+    });
+  }
+
+  if (!items.length) return;
+  gsap.from(items, {
+    y: profile === "full" ? 86 : 38,
+    rotationZ: (index) => profile === "full" ? (index % 2 ? 1.2 : -1.2) : 0,
+    opacity: 0,
+    filter: profile === "full" ? "blur(10px)" : "blur(4px)",
+    duration: 0.9,
+    stagger: 0.07,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: "[data-skills-stage]",
+      start: "top 82%",
+      once: true
+    }
+  });
+}
+
+function initProcessSequence(gsap, profile) {
+  const stage = document.querySelector("[data-process-stage]");
+  const steps = gsap.utils.toArray("[data-process-step]");
+  if (!stage || steps.length < 2 || profile !== "full") return;
+
+  gsap.set(steps, { autoAlpha: 0, y: 34, scale: 0.96, filter: "blur(12px)" });
+  gsap.set(steps[0], { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)" });
+  setProcessProgress(0, steps.length);
+
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: stage,
+      start: "top top+=90",
+      end: () => `+=${getPanelScrollDistance(steps.length, innerHeight, profile)}`,
+      pin: true,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const active = Math.round(self.progress * (steps.length - 1));
+        setProcessProgress(active, steps.length);
+      }
+    }
+  });
+
+  for (let index = 1; index < steps.length; index += 1) {
+    const position = index - 1;
+    timeline
+      .to(steps[index - 1], {
+        autoAlpha: 0,
+        y: -34,
+        scale: 0.94,
+        filter: "blur(12px)",
+        duration: 0.48
+      }, position)
+      .fromTo(steps[index], {
+        autoAlpha: 0,
+        y: 34,
+        scale: 0.96,
+        filter: "blur(12px)"
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.52
+      }, position + 0.48);
+  }
+}
+
 export function initAnimations() {
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const profile = getMotionProfile({
     width: innerWidth,
     height: innerHeight,
-    reduced,
+    reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
     pointerFine: matchMedia("(pointer: fine)").matches
   });
 
@@ -25,84 +220,22 @@ export function initAnimations() {
   }
 
   gsap.registerPlugin(ScrollTrigger);
-
-  gsap.utils.toArray("[data-reveal]").forEach((element) => {
-    gsap.from(element, {
-      y: 42,
-      opacity: 0,
-      filter: "blur(12px)",
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: element,
-        start: "top 82%"
-      }
+  const media = gsap.matchMedia();
+  const context = gsap.context(() => {
+    media.add("(min-width: 1px)", () => {
+      initGlobalReveals(gsap, profile);
+      initHeroSequence(gsap, profile);
+      initPanelStack(gsap, "[data-service-card]", profile);
+      initPanelStack(gsap, "[data-project-panel]", profile);
+      initSkillsSequence(gsap, profile);
+      initProcessSequence(gsap, profile);
     });
   });
 
-  const skillItems = gsap.utils.toArray(".skill-item");
-  if (skillItems.length >= 8 && matchMedia("(min-width: 981px)").matches) {
-    const lowerSkills = skillItems.slice(4);
-    gsap.fromTo(lowerSkills,
-      { y: 120, scale: 0.96, opacity: 0.72 },
-      {
-        y: -92,
-        scale: 1,
-        opacity: 1,
-        stagger: 0.05,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".skills__grid",
-          start: "top 68%",
-          end: "bottom 36%",
-          scrub: 0.9
-        }
-      }
-    );
-  }
+  requestAnimationFrame(() => ScrollTrigger.refresh());
 
-  const serviceCards = gsap.utils.toArray("[data-service-card]");
-  if (serviceCards.length && matchMedia("(min-width: 981px)").matches) {
-    serviceCards.forEach((card, index) => {
-      gsap.fromTo(card,
-        { y: index === 0 ? 0 : 90, scale: index === 0 ? 1 : 0.96, opacity: index === 0 ? 1 : 0.7 },
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 82%",
-            end: "top 24%",
-            scrub: 0.8
-          }
-        }
-      );
-    });
-  }
-
-  const steps = gsap.utils.toArray("[data-process-step]");
-  if (steps.length && matchMedia("(min-width: 820px)").matches) {
-    steps.forEach((step, index) => {
-      gsap.fromTo(step,
-        { opacity: index === 0 ? 1 : 0.18, y: index === 0 ? 0 : 24 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: step,
-            start: "top 72%",
-            end: "bottom 38%",
-            scrub: true
-          }
-        }
-      );
-    });
-  }
-
-  ScrollTrigger.refresh();
   return () => {
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    media.revert();
+    context.revert();
   };
 }
