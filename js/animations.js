@@ -124,9 +124,10 @@ function initPanelStack(gsap, selector, profile) {
 function initSkillsSequence(gsap, profile) {
   const marquee = document.querySelector("[data-skill-marquee] > div");
   const items = gsap.utils.toArray("[data-skill-item]");
+  let marqueeTween;
 
   if (marquee) {
-    gsap.to(marquee, {
+    marqueeTween = gsap.to(marquee, {
       xPercent: -50,
       duration: profile === "full" ? 24 : 34,
       repeat: -1,
@@ -134,21 +135,26 @@ function initSkillsSequence(gsap, profile) {
     });
   }
 
-  if (!items.length) return;
-  gsap.from(items, {
-    y: profile === "full" ? 86 : 38,
-    rotationZ: (index) => profile === "full" ? (index % 2 ? 1.2 : -1.2) : 0,
-    opacity: 0,
-    filter: profile === "full" ? "blur(10px)" : "blur(4px)",
-    duration: 0.9,
-    stagger: 0.07,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: "[data-skills-stage]",
-      start: "top 82%",
-      once: true
-    }
-  });
+  if (items.length) {
+    gsap.from(items, {
+      y: profile === "full" ? 86 : 38,
+      rotationZ: (index) => profile === "full" ? (index % 2 ? 1.2 : -1.2) : 0,
+      opacity: 0,
+      filter: profile === "full" ? "blur(10px)" : "blur(4px)",
+      duration: 0.9,
+      stagger: 0.07,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "[data-skills-stage]",
+        start: "top 82%",
+        once: true
+      }
+    });
+  }
+
+  const syncMarquee = () => marqueeTween?.paused(document.hidden);
+  document.addEventListener("visibilitychange", syncMarquee);
+  return () => document.removeEventListener("visibilitychange", syncMarquee);
 }
 
 function initProcessSequence(gsap, profile) {
@@ -227,8 +233,9 @@ export function initAnimations() {
       initHeroSequence(gsap, profile);
       initPanelStack(gsap, "[data-service-card]", profile);
       initPanelStack(gsap, "[data-project-panel]", profile);
-      initSkillsSequence(gsap, profile);
+      const disposeSkills = initSkillsSequence(gsap, profile);
       initProcessSequence(gsap, profile);
+      return () => disposeSkills?.();
     });
   });
 
