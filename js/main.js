@@ -64,5 +64,22 @@ const preloaderPromise = safelyInitialize(initPreloader) ?? Promise.resolve();
 Promise.resolve(preloaderPromise).finally(() => {
   safelyInitialize(initHeroVideo);
   safelyInitialize(initCursor);
-  safelyInitialize(initAnimations);
+
+  let disposeAnimations = safelyInitialize(initAnimations) ?? (() => {});
+  const motionQueries = [
+    matchMedia("(max-width: 759px)"),
+    matchMedia("(max-height: 619px)"),
+    matchMedia("(pointer: fine)"),
+    matchMedia("(prefers-reduced-motion: reduce)")
+  ];
+  const rebuildAnimations = () => {
+    disposeAnimations();
+    disposeAnimations = safelyInitialize(initAnimations) ?? (() => {});
+  };
+
+  motionQueries.forEach((query) => query.addEventListener("change", rebuildAnimations));
+  window.addEventListener("pagehide", () => {
+    motionQueries.forEach((query) => query.removeEventListener("change", rebuildAnimations));
+    disposeAnimations();
+  }, { once: true });
 });
