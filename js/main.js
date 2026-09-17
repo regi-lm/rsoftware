@@ -8,6 +8,7 @@ import { initCursor } from "./cursor.js";
 import { initPreloader } from "./preloader.js";
 import { initAnimations } from "./animations.js";
 import { initProcessProgress } from "./process.js";
+import { initMatrixBackground } from "./matrix-background.js";
 
 document.documentElement.classList.add("has-js");
 
@@ -62,6 +63,7 @@ safelyInitialize(initIcons);
 
 const preloaderPromise = safelyInitialize(initPreloader) ?? Promise.resolve();
 Promise.resolve(preloaderPromise).finally(() => {
+  const disposeMatrix = safelyInitialize(initMatrixBackground) ?? (() => {});
   safelyInitialize(initHeroVideo);
   safelyInitialize(initCursor);
 
@@ -78,8 +80,10 @@ Promise.resolve(preloaderPromise).finally(() => {
   };
 
   motionQueries.forEach((query) => query.addEventListener("change", rebuildAnimations));
-  window.addEventListener("pagehide", () => {
+  window.addEventListener("pagehide", (event) => {
+    if (event.persisted) return;
     motionQueries.forEach((query) => query.removeEventListener("change", rebuildAnimations));
+    disposeMatrix();
     disposeAnimations();
-  }, { once: true });
+  });
 });
