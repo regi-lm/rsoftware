@@ -1,4 +1,5 @@
 import { setProcessProgress } from "./process.js";
+import { initFooterWordmark } from "./footer.js";
 
 export function getMotionProfile({ width, height, reduced, pointerFine }) {
   if (reduced) return "static";
@@ -36,7 +37,6 @@ function initGlobalReveals(gsap, profile) {
 function initHeroSequence(gsap, profile) {
   const titleLines = gsap.utils.toArray("[data-title-line]");
   const heroCopy = document.querySelector("[data-hero-copy]");
-  const heroMedia = document.querySelector("[data-hero-media]");
   if (!heroCopy || !titleLines.length) return;
 
   const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -48,48 +48,12 @@ function initHeroSequence(gsap, profile) {
       duration: profile === "full" ? 1.15 : 0.78,
       stagger: 0.08
     })
-    .from(heroCopy.querySelector(".eyebrow"), { y: 18, opacity: 0, duration: 0.6 }, 0.18)
-    .from(heroCopy.querySelectorAll(":scope > p:not(.eyebrow), .cta-row"), {
+    .from(heroCopy.querySelectorAll(":scope > p, .cta-row, .hero__technologies"), {
       y: 24,
       opacity: 0,
       duration: 0.72,
       stagger: 0.08
     }, "-=0.5");
-
-  if (!heroMedia) return;
-
-  gsap.fromTo(heroMedia,
-    {
-      scale: profile === "full" ? 0.72 : 0.92,
-      borderRadius: profile === "full" ? "4rem" : "1.5rem"
-    },
-    {
-      scale: 1,
-      borderRadius: "0.8rem",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: profile === "full" ? "bottom 35%" : "bottom 55%",
-        scrub: profile === "full" ? 1 : 0.45
-      }
-    }
-  );
-
-  const video = heroMedia.querySelector("video");
-  if (video) {
-    gsap.fromTo(video, { scale: 1.08, yPercent: -2 }, {
-      scale: 1,
-      yPercent: 4,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-  }
 }
 
 function initPanelStack(gsap, selector, profile) {
@@ -122,8 +86,8 @@ function initPanelStack(gsap, selector, profile) {
 }
 
 function initSkillsSequence(gsap, profile) {
-  const marquee = document.querySelector("[data-skill-marquee] > div");
-  const items = gsap.utils.toArray("[data-skill-item]");
+  const marquee = document.querySelector("[data-skill-marquee]");
+  const items = gsap.utils.toArray("[data-skill-motion]");
   let marqueeTween;
 
   if (marquee) {
@@ -226,22 +190,29 @@ export function initAnimations() {
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  const disposeFooter = initFooterWordmark(gsap, profile);
   const media = gsap.matchMedia();
   const context = gsap.context(() => {
     media.add("(min-width: 1px)", () => {
       initGlobalReveals(gsap, profile);
       initHeroSequence(gsap, profile);
       initPanelStack(gsap, "[data-service-card]", profile);
-      initPanelStack(gsap, "[data-project-panel]", profile);
       const disposeSkills = initSkillsSequence(gsap, profile);
-      initProcessSequence(gsap, profile);
       return () => disposeSkills?.();
+    });
+    media.add("(max-width: 980px)", () => {
+      initPanelStack(gsap, "[data-process-step]", profile);
+    });
+    media.add("(min-width: 981px)", () => {
+      initPanelStack(gsap, "[data-project-panel]", profile);
+      initProcessSequence(gsap, profile);
     });
   });
 
   requestAnimationFrame(() => ScrollTrigger.refresh());
 
   return () => {
+    disposeFooter?.();
     media.revert();
     context.revert();
   };

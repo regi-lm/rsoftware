@@ -1,13 +1,13 @@
 export function initNavigation() {
   const header = document.querySelector("[data-header]");
   const toggle = document.querySelector("[data-menu-toggle]");
+  const closeButton = document.querySelector("[data-menu-close]");
   const menu = document.querySelector("#site-menu");
   const links = menu ? [...menu.querySelectorAll("a")] : [];
   const pageRegions = [...document.querySelectorAll("main, footer")];
 
   const setMenu = (open, { returnFocus = false } = {}) => {
     toggle?.setAttribute("aria-expanded", String(open));
-    toggle?.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     document.body.classList.toggle("nav-open", open);
     pageRegions.forEach((region) => {
       region.inert = open;
@@ -21,6 +21,7 @@ export function initNavigation() {
   toggle?.addEventListener("click", () => {
     setMenu(toggle.getAttribute("aria-expanded") !== "true");
   });
+  closeButton?.addEventListener("click", () => setMenu(false, { returnFocus: true }));
 
   links.forEach((link) => {
     link.addEventListener("click", () => setMenu(false, { returnFocus: true }));

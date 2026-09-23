@@ -5,7 +5,7 @@ Site institucional estático da RSoftware, feito em HTML, CSS e JavaScript Vanil
 ## Recursos
 
 - Preloader com a logo fornecida.
-- Hero com vídeo local silencioso e responsivo.
+- Hero centralizado com carrossel responsivo de tecnologias.
 - Header responsivo, menu acessível e anchors.
 - Seções Sobre, Skills, Projetos, Processo, FAQ e Contato.
 - Projetos data-driven em `js/projects.js`.

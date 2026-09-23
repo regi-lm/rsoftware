@@ -1,8 +1,9 @@
 .faq { padding-block: var(--space-section); }
-.faq .section-heading { margin-bottom: clamp(3rem, 7vw, 6rem); }
+.faq .section-heading { max-width: 820px; margin-bottom: clamp(2rem, 5vw, 4rem); }
+.faq .section-heading h2 { font-size: clamp(2.6rem, 5.5vw, 5.4rem); }
 .faq__list { display: grid; border-top: 1px solid var(--line); counter-reset: faq; }
 .faq article { position: relative; border-bottom: 1px solid var(--line); counter-increment: faq; transition: background .35s var(--ease-out); }
-.faq article::before { content: counter(faq, decimal-leading-zero); position: absolute; left: 0; top: 2rem; color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+.faq article::before { content: counter(faq, decimal-leading-zero); position: absolute; left: 0; top: 1.45rem; color: var(--blue); font-size: .66rem; font-weight: 800; letter-spacing: .12em; }
 .faq article:has(button[aria-expanded="true"]) { background: linear-gradient(90deg, rgba(76,201,255,.08), transparent 62%); }
 .faq button {
   width: 100%;
@@ -10,17 +11,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: clamp(1.7rem, 4vw, 3.5rem) 0 clamp(1.7rem, 4vw, 3.5rem) clamp(3rem, 8vw, 8rem);
+  padding: clamp(1.2rem, 2.3vw, 2rem) 0 clamp(1.2rem, 2.3vw, 2rem) clamp(2.8rem, 6vw, 6rem);
   color: var(--text);
   background: transparent;
   text-align: left;
-  font-size: clamp(1.35rem, 3.4vw, 3.6rem);
+  font-size: clamp(1.08rem, 2vw, 1.85rem);
   font-weight: 650;
-  line-height: 1;
-  letter-spacing: -.045em;
+  line-height: 1.15;
+  letter-spacing: -.03em;
 }
-.faq button svg { color: var(--blue); transition: transform .25s var(--ease); }
+.faq button svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--blue); transition: transform .25s var(--ease); }
 .faq__question { min-width: 0; }
 .brand-word--faq::first-letter { color: var(--blue); }
 .faq button[aria-expanded="true"] svg { transform: rotate(45deg); }
-.faq article p { max-width: 820px; overflow: hidden; margin-left: clamp(3rem, 8vw, 8rem); padding-bottom: clamp(1.7rem, 4vw, 3rem); }
+.faq article p { max-width: 720px; overflow: hidden; margin-left: clamp(2.8rem, 6vw, 6rem); padding-bottom: clamp(1.2rem, 2.3vw, 1.8rem); font-size: clamp(.9rem, 1.2vw, 1rem); }

@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 80;
-  height: var(--header-h);
+  height: 100px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -12,35 +12,138 @@
   padding: 0 var(--header-pad);
   border: 1px solid transparent;
   border-radius: 0;
-  transition: background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s var(--ease);
+  transition:
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    backdrop-filter 0.3s var(--ease);
 }
 
 .site-header::after {
   content: "";
   position: absolute;
-  inset: .55rem .7rem;
+  inset: 0.55rem 0.7rem;
   z-index: -1;
   border: 1px solid transparent;
   border-radius: 999px;
-  transition: background .4s var(--ease-out), border-color .4s var(--ease-out), backdrop-filter .4s var(--ease-out), box-shadow .4s var(--ease-out);
+  transition:
+    background 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    backdrop-filter 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
 }
 
-.site-header.is-scrolled::after, .nav-open .site-header::after {
+.site-header.is-scrolled::after,
+.nav-open .site-header::after {
   border-color: var(--line);
-  background: rgba(8, 10, 12, .76);
+  background: rgba(8, 10, 12, 0.76);
   backdrop-filter: blur(22px);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, .24);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
 }
 
-.brand { display: inline-flex; align-items: center; gap: .7rem; font-weight: 800; }
-.brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 18px rgba(76,201,255,.22); }
-.brand-initial { color: var(--blue); }
-.site-nav { justify-self: center; display: flex; align-items: center; gap: clamp(.85rem, 2vw, 1.8rem); color: var(--muted); font-size: .82rem; letter-spacing: .02em; }
-.site-nav__links { display: flex; align-items: center; gap: inherit; }
-.site-nav__footer { display: none; }
-.site-nav a { position: relative; }
-.site-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -.35rem; height: 1px; background: var(--blue); transition: right .35s var(--ease-out); }
-.site-nav a:hover { color: var(--text); }
-.site-nav a:hover::after { right: 0; }
-.header-cta { justify-self: end; padding: .72rem 1rem; border-radius: 999px; color: #041016; background: var(--blue); font-size: .82rem; font-weight: 800; }
-.menu-toggle { display: none; color: var(--text); background: transparent; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 800;
+}
+.brand img {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 18px rgba(76, 201, 255, 0.22);
+}
+.brand-initial {
+  color: var(--blue);
+}
+.site-nav {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 2vw, 1.8rem);
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: inherit;
+}
+.site-nav__eyebrow,
+.site-nav__icon,
+.site-nav__arrow {
+  display: none;
+}
+.site-nav__footer {
+  display: none;
+}
+.site-nav a {
+  position: relative;
+}
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -0.35rem;
+  height: 1px;
+  background: var(--blue);
+  transition: right 0.35s var(--ease-out);
+}
+.site-nav a:hover {
+  color: var(--text);
+}
+.site-nav a:hover::after {
+  right: 0;
+}
+.header-cta {
+  position: relative;
+  isolation: isolate;
+  justify-self: end;
+  overflow: hidden;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  color: #041016;
+  background: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+@media (min-width: 981px) {
+  .header-cta::before {
+    content: "";
+    position: absolute;
+    inset: -35% auto -35% 0;
+    width: 42%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.16) 25%,
+      rgba(255, 255, 255, 0.92) 50%,
+      rgba(255, 255, 255, 0.18) 75%,
+      transparent 100%
+    );
+    filter: blur(0.4px);
+    transform: translate3d(-240%, 0, 0) skewX(-18deg);
+    animation: header-cta-reflection 3.4s ease-in-out infinite;
+  }
+}
+
+@keyframes header-cta-reflection {
+  0%,
+  54% {
+    transform: translate3d(-240%, 0, 0) skewX(-18deg);
+  }
+  82%,
+  100% {
+    transform: translate3d(460%, 0, 0) skewX(-18deg);
+  }
+}
+
+.menu-toggle {
+  display: none;
+  color: var(--text);
+  background: transparent;
+}
