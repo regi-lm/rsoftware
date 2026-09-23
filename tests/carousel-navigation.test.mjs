@@ -37,3 +37,24 @@ test("carousel index follows the nearest card", async () => {
 
   assert.equal(getClosestCarouselIndex(track, items), 1);
 });
+
+test("carousel arrow state changes only at card boundaries", async () => {
+  const { getCarouselIndexState } = await importCarouselModule();
+
+  assert.deepEqual(getCarouselIndexState(0, 4), {
+    showPrevious: false,
+    showNext: true
+  });
+  assert.deepEqual(getCarouselIndexState(2, 4), {
+    showPrevious: true,
+    showNext: true
+  });
+  assert.deepEqual(getCarouselIndexState(3, 4), {
+    showPrevious: true,
+    showNext: false
+  });
+  assert.deepEqual(getCarouselIndexState(0, 1), {
+    showPrevious: false,
+    showNext: false
+  });
+});

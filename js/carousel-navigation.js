@@ -18,6 +18,14 @@ export function getClosestCarouselIndex(track, items) {
   }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
 }
 
+export function getCarouselIndexState(index, itemCount) {
+  if (itemCount <= 1 || index < 0) return { showPrevious: false, showNext: false };
+  return {
+    showPrevious: index > 0,
+    showNext: index < itemCount - 1
+  };
+}
+
 export function initCarouselNavigation(options = {}) {
   const doc = options.doc ?? globalThis.document;
   const win = options.win ?? globalThis.window;
@@ -36,13 +44,19 @@ export function initCarouselNavigation(options = {}) {
     if (!track || !previous || !next || !items.length) return;
 
     let frameId = 0;
-    const update = () => {
-      const state = getCarouselState(track);
+    let settleId = 0;
+    let activeIndex = getClosestCarouselIndex(track, items);
+    const setArrowVisible = (button, visible) => {
+      button.classList.toggle("is-hidden", !visible);
+      button.disabled = !visible;
+      button.setAttribute("aria-hidden", String(!visible));
+    };
+    const update = (index = getClosestCarouselIndex(track, items)) => {
+      activeIndex = index;
+      const state = getCarouselIndexState(activeIndex, items.length);
       controls.hidden = items.length < 2;
-      previous.hidden = !state.showPrevious;
-      previous.disabled = !state.showPrevious;
-      next.hidden = !state.showNext;
-      next.disabled = !state.showNext;
+      setArrowVisible(previous, state.showPrevious);
+      setArrowVisible(next, state.showNext);
     };
     const scheduleUpdate = () => {
       if (!requestFrame) {
@@ -55,29 +69,44 @@ export function initCarouselNavigation(options = {}) {
         update();
       });
     };
+    const scheduleSettledUpdate = () => {
+      win.clearTimeout(settleId);
+      settleId = win.setTimeout(() => {
+        settleId = 0;
+        scheduleUpdate();
+      }, 140);
+    };
+    const finishScroll = () => {
+      win.clearTimeout(settleId);
+      settleId = 0;
+      scheduleUpdate();
+    };
     const move = (direction) => {
-      const current = getClosestCarouselIndex(track, items);
-      const targetIndex = Math.min(Math.max(current + direction, 0), items.length - 1);
+      const targetIndex = Math.min(Math.max(activeIndex + direction, 0), items.length - 1);
       const left = items[targetIndex].offsetLeft - items[0].offsetLeft;
       const behavior = reducedMotion?.matches ? "auto" : "smooth";
+      update(targetIndex);
       if (typeof track.scrollTo === "function") track.scrollTo({ left, behavior });
       else track.scrollLeft = left;
-      scheduleUpdate();
+      scheduleSettledUpdate();
     };
     const movePrevious = () => move(-1);
     const moveNext = () => move(1);
 
     previous.addEventListener("click", movePrevious);
     next.addEventListener("click", moveNext);
-    track.addEventListener("scroll", scheduleUpdate, { passive: true });
+    track.addEventListener("scroll", scheduleSettledUpdate, { passive: true });
+    track.addEventListener("scrollend", finishScroll);
     win.addEventListener("resize", scheduleUpdate, { passive: true });
     update();
 
     cleanups.push(() => {
       previous.removeEventListener("click", movePrevious);
       next.removeEventListener("click", moveNext);
-      track.removeEventListener("scroll", scheduleUpdate);
+      track.removeEventListener("scroll", scheduleSettledUpdate);
+      track.removeEventListener("scrollend", finishScroll);
       win.removeEventListener("resize", scheduleUpdate);
+      win.clearTimeout(settleId);
       if (frameId && cancelFrame) cancelFrame(frameId);
     });
   });

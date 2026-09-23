@@ -2,7 +2,7 @@
   display: none;
 }
 
-.carousel-control[hidden] {
+.carousel-controls[hidden] {
   display: none;
 }
 
@@ -365,8 +365,10 @@
     color: #041016;
     background: var(--blue);
     box-shadow: 0 12px 34px rgba(76, 201, 255, 0.18);
+    opacity: 1;
     transition:
       transform 0.25s var(--ease),
+      opacity 0.18s var(--ease),
       background 0.25s var(--ease),
       box-shadow 0.25s var(--ease);
   }
@@ -387,6 +389,11 @@
   .carousel-control--next {
     grid-column: 2;
     justify-self: end;
+  }
+  .carousel-control.is-hidden {
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.86);
   }
   .service-card,
   .project-panel {

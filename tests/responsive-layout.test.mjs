@@ -128,6 +128,7 @@ test("skills and projects expose responsive arrow controls while keeping swipe n
   assert.equal((html.match(/data-carousel-next/g) ?? []).length, 2);
   assert.match(css, /\.carousel-controls\s*\{\s*display:\s*none;/s);
   assert.match(css, /@media \(max-width: 980px\)[\s\S]*?\.carousel-controls\s*\{[^}]*display:\s*grid;/s);
+  assert.match(css, /\.carousel-control\.is-hidden\s*\{[^}]*pointer-events:\s*none;[^}]*opacity:\s*0;[^}]*transform:\s*scale\(0\.86\);/s);
   assert.match(skillsSource, /id="skills-carousel"[^>]*data-skills-stage/);
   assert.match(main, /initCarouselNavigation/);
 });
