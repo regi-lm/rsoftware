@@ -5,10 +5,35 @@ export function initNavigation() {
   const menu = document.querySelector("#site-menu");
   const links = menu ? [...menu.querySelectorAll("a")] : [];
   const pageRegions = [...document.querySelectorAll("main, footer")];
+  let lockedScrollY = 0;
+  let scrollLocked = false;
+
+  const setScrollLock = (locked) => {
+    if (locked === scrollLocked) return;
+
+    if (locked) {
+      lockedScrollY = window.scrollY;
+      document.body.style.top = `-${lockedScrollY}px`;
+      document.documentElement.classList.add("nav-open");
+      document.body.classList.add("nav-open");
+      scrollLocked = true;
+      return;
+    }
+
+    document.documentElement.classList.remove("nav-open");
+    document.body.classList.remove("nav-open");
+    document.body.style.removeProperty("top");
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, lockedScrollY);
+    if (previousScrollBehavior) document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    else document.documentElement.style.removeProperty("scroll-behavior");
+    scrollLocked = false;
+  };
 
   const setMenu = (open, { returnFocus = false } = {}) => {
     toggle?.setAttribute("aria-expanded", String(open));
-    document.body.classList.toggle("nav-open", open);
+    setScrollLock(open);
     pageRegions.forEach((region) => {
       region.inert = open;
     });

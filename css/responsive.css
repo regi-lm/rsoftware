@@ -17,9 +17,41 @@
   .site-header {
     grid-template-columns: auto auto;
     justify-content: space-between;
+    padding: 0 30px;
+    height: 70px;
   }
+
+  .site-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition:
+      background 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out),
+      backdrop-filter 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+  }
+
+  .site-header .brand img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 18px rgba(76, 201, 255, 0.22);
+  }
+
+  html.nav-open,
   body.nav-open {
     overflow: hidden;
+    overscroll-behavior: none;
+  }
+  body.nav-open {
+    position: fixed;
+    inset-inline: 0;
+    width: 100%;
   }
   .brand,
   .menu-toggle--open {

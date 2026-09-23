@@ -29,6 +29,21 @@ test("responsive menu renders its close control inside the open panel at the ope
   assert.match(navigation, /closeButton\?\.addEventListener\("click", \(\) => setMenu\(false, \{ returnFocus: true \}\)\)/);
 });
 
+test("mobile menu locks page scrolling and restores its previous position on close", async () => {
+  const [css, navigation] = await Promise.all([
+    readProjectFile("css/responsive.css"),
+    readProjectFile("js/navigation.js")
+  ]);
+
+  assert.match(css, /html\.nav-open,\s*body\.nav-open\s*\{[^}]*overflow:\s*hidden;[^}]*overscroll-behavior:\s*none;/s);
+  assert.match(css, /body\.nav-open\s*\{[^}]*position:\s*fixed;[^}]*width:\s*100%;/s);
+  assert.match(navigation, /lockedScrollY = window\.scrollY/);
+  assert.match(navigation, /document\.body\.style\.top = `-\$\{lockedScrollY\}px`/);
+  assert.match(navigation, /document\.body\.style\.removeProperty\("top"\)/);
+  assert.match(navigation, /window\.scrollTo\(0, lockedScrollY\)/);
+  assert.match(navigation, /const setMenu = \(open,[\s\S]*?setScrollLock\(open\);/s);
+});
+
 test("responsive menu presents every header link as a labeled navigation card and preserves its footer", async () => {
   const [html, responsiveCss] = await Promise.all([
     readProjectFile("index.html"),

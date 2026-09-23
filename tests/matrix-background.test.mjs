@@ -370,7 +370,12 @@ test("site loads, starts, layers, and disposes the matrix background", async () 
   assert.ok(main.indexOf("safelyInitialize(initMatrixBackground)") < main.indexOf("safelyInitialize(initCursor)"));
   assert.match(main, /pagehide", \(event\) => \{\s*if \(event\.persisted\) return;[\s\S]*disposeMatrix\(\);[\s\S]*disposeAnimations\(\);/);
   assert.doesNotMatch(main, /pagehide[\s\S]*\{ once: true \}/);
+  assert.match(main, /const matrixQuery = matchMedia\("\(min-width: 981px\)"\)/);
+  assert.match(main, /disposeMatrix = matrixQuery\.matches\s*\? safelyInitialize\(initMatrixBackground\)/s);
+  assert.match(main, /matrixQuery\.addEventListener\("change", syncMatrix\)/);
+  assert.match(main, /matrixQuery\.removeEventListener\("change", syncMatrix\)/);
   assert.match(styles, /#matrix-background\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*0;[^}]*pointer-events:\s*none;/s);
+  assert.match(styles, /@media \(max-width: 980px\)\s*\{\s*#matrix-background\s*\{[^}]*display:\s*none;/s);
   assert.match(styles, /body::before\s*\{\s*z-index:\s*1;\s*\}/);
   assert.match(styles, /main,\s*\.site-footer\s*\{[^}]*z-index:\s*2;/s);
 });

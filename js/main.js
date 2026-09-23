@@ -56,7 +56,17 @@ safelyInitialize(initIcons);
 
 const preloaderPromise = safelyInitialize(initPreloader) ?? Promise.resolve();
 Promise.resolve(preloaderPromise).finally(() => {
-  const disposeMatrix = safelyInitialize(initMatrixBackground) ?? (() => {});
+  const matrixQuery = matchMedia("(min-width: 981px)");
+  let disposeMatrix = () => {};
+  const syncMatrix = () => {
+    disposeMatrix();
+    disposeMatrix = matrixQuery.matches
+      ? safelyInitialize(initMatrixBackground) ?? (() => {})
+      : () => {};
+  };
+
+  syncMatrix();
+  matrixQuery.addEventListener("change", syncMatrix);
   safelyInitialize(initCursor);
 
   let disposeAnimations = safelyInitialize(initAnimations) ?? (() => {});
@@ -74,6 +84,7 @@ Promise.resolve(preloaderPromise).finally(() => {
   motionQueries.forEach((query) => query.addEventListener("change", rebuildAnimations));
   window.addEventListener("pagehide", (event) => {
     if (event.persisted) return;
+    matrixQuery.removeEventListener("change", syncMatrix);
     motionQueries.forEach((query) => query.removeEventListener("change", rebuildAnimations));
     disposeCarouselNavigation();
     disposeMatrix();
